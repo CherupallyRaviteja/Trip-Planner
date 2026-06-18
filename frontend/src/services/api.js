@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://trip-planner-1-4juy.onrender.com";
 
 export async function sendMessage(message) {
   const response = await fetch(`${API_URL}/chat`, {
