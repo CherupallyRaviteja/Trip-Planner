@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Environment Variables
+.env
+.env.local
+
+# FastAPI
+*.log
+
+# Node.js
+node_modules/
+
+# Vite
+dist/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Build Files
+build/
+
+# Temporary Files
+*.tmp
+*.temp
