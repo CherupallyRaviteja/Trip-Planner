@@ -19,8 +19,8 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
-        "https://trip-planner-t5dv.vercel.app"
+        "https://trip-planner-puce-pi.vercel.app/",
+        "http://localhost:5173"
     ],
     allow_credentials=True,
     allow_methods=["*"],
