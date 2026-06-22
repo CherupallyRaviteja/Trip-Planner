@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useRef, useEffect }  from "react";
 import { sendMessage } from "./services/api";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import ResponseRenderer from "./components/ResponseRenderer";
 import {
   Plane,
   MapPinned,
@@ -12,13 +13,31 @@ import {
 function App() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [tripData, setTripData] = useState(null);
+  const [agentStatus, setAgentStatus] = useState("");
+  const resultsRef = useRef(null);
+  const chatRef = useRef(null);
+  const userId =
+  localStorage.getItem("user_id") ||
+    crypto.randomUUID();
 
+  localStorage.setItem(
+    "user_id",
+    userId
+  );
   const [messages, setMessages] = useState([
     {
       sender: "bot",
       text: "Welcome to TripPlanner! Ask me about destinations, itineraries, budgets, and attractions.",
     },
   ]);
+
+  useEffect(() => {
+      chatRef.current?.scrollTo({
+        top: chatRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }, [messages]);
 
   const handleSendMessage = async (text = message) => {
     if (!text.trim()) return;
@@ -34,28 +53,107 @@ function App() {
     setMessage("");
     setLoading(true);
 
-    try {
-      const data = await sendMessage(text);
+    setAgentStatus(
+      "🧠 Understanding your travel requirements..."
+    );
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: data.reply,
-        },
-      ]);
-    } catch (error) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: "Unable to connect to TripPlanner.",
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const status1 = setTimeout(() => {
+      setAgentStatus(
+        "📍 Analyzing destination and preferences..."
+      );
+    }, 7000);
+
+    const status2 = setTimeout(() => {
+      setAgentStatus(
+        "☀ Checking weather conditions..."
+      );
+    }, 3000);
+
+    const status3 = setTimeout(() => {
+      setAgentStatus(
+        "🗓 Building your personalized itinerary..."
+      );
+    }, 9000);
+
+    const status4 = setTimeout(() => {
+      setAgentStatus(
+        "✈ Finalizing travel plan..."
+      );
+    }, 12000);
+
+    try {
+
+  const data = await sendMessage(
+    text,
+    userId
+  );
+
+  clearTimeout(status1);
+  clearTimeout(status2);
+  clearTimeout(status3);
+  clearTimeout(status4);
+
+  // Preference-only response
+  if (data.message) {
+
+  setMessages((prev) => [
+    ...prev,
+    {
+      sender: "bot",
+      text: data.message,
+    },
+  ]);
+
+  setLoading(false);
+  return;
+}
+
+setMessages((prev) => [
+  ...prev,
+  {
+    sender: "bot",
+    text: "Your travel plan is ready. Scroll down to view it.",
+  },
+]);
+
+setAgentStatus("✓ Travel plan ready");
+
+setTripData(data);
+
+  setTimeout(() => {
+
+    resultsRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+  }, 1000);
+
+  setTimeout(() => {
+
+    setLoading(false);
+
+  }, 1000);
+
+} catch (error) {
+
+  clearTimeout(status1);
+  clearTimeout(status2);
+  clearTimeout(status3);
+  clearTimeout(status4);
+
+  setLoading(false);
+
+  setMessages((prev) => [
+    ...prev,
+    {
+      sender: "bot",
+      text:
+        "Unable to connect to TripPlanner.",
+    },
+  ]);
+}
+};
 
   const examples = [
     "Plan a 3-day Goa trip",
@@ -141,7 +239,7 @@ function App() {
   <div className="bg-white rounded-3xl p-5 shadow-lg mb-6">
 
     <h2 className="font-bold text-xl mb-3">
-      Example Questions
+      Ask Me Like 
     </h2>
 
     <div className="flex flex-wrap gap-3">
@@ -165,7 +263,10 @@ function App() {
       AI Travel Assistant
     </h2>
 
-    <div className="h-100 overflow-y-auto space-y-4">
+    <div
+  ref={chatRef}
+  className="h-50 overflow-y-auto space-y-4"
+  >
 
       {messages.map((msg, index) => (
         <div
@@ -232,7 +333,7 @@ function App() {
 
       {loading && (
         <div className="text-slate-500">
-          Planning your trip...
+          {agentStatus}
         </div>
       )}
 
@@ -261,6 +362,27 @@ function App() {
     </div>
 
   </div>
+
+
+  {tripData && (
+  <div ref={resultsRef} className="mt-8">
+
+    <div className="bg-green-50 border border-green-200 rounded-2xl p-4 mb-6">
+
+      <h2 className="text-2xl font-bold text-green-700">
+        ✈️ Your Travel Plan Is Ready
+      </h2>
+
+      <p className="text-green-600">
+        Scroll down to view your personalized itinerary.
+      </p>
+
+    </div>
+
+    <ResponseRenderer data={tripData} />
+
+  </div>
+  )}
 
 </main>
       {/* Footer */}

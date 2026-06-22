@@ -1,44 +1,57 @@
 # Python
-__pycache__/
+
+**pycache**/
 *.pyc
 *.pyo
 *.pyd
 
 # Virtual Environment
+
 .venv/
 venv/
 env/
 
 # Environment Variables
-.env
-.env.local
 
-# FastAPI
+.env
+
+# Memory Files
+backend/data/memories/
+backend/data/memory.json
+
+# Logs
+
 *.log
 
-# Node.js
-node_modules/
+# IDE
 
-# Vite
-dist/
+.vscode/
+.idea/
 
 # OS Files
+
 .DS_Store
 Thumbs.db
 
-# VS Code
-.vscode/
+# Node
 
-# JetBrains
-.idea/
+node_modules/
+
+# Vite
+
+dist/
+
+# Build Files
+
+build/
 
 # Coverage
+
 .coverage
 htmlcov/
 
-# Build Files
-build/
+# SQLite
 
-# Temporary Files
-*.tmp
-*.temp
+*.db
+*.sqlite3
+

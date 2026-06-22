@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 from google import genai
 import os
+from agent import travel_agent
 
 # Load environment variables
 load_dotenv()
@@ -34,28 +35,30 @@ client = genai.Client(
 
 # System Prompt
 SYSTEM_PROMPT = """
-You are TripPlanner, an AI Travel Planning Assistant.
+    You are an AI Travel Planner.
 
-You ONLY answer travel-related questions.
+    Trip Details:
+    {trip_details}
 
-You help users with:
-- Travel itineraries
-- Destination recommendations
-- Budget estimation
-- Tourist attractions
-- Transportation advice
-- Accommodation suggestions
-- Travel tips
+    Weather:
+    {weather}
 
-If a question is unrelated to travel,
-politely refuse and ask the user to ask a travel-related question.
+    User Memory:
+    {memory}
 
-Format responses clearly using headings and bullet points when appropriate.
+    Rules:
+
+    1. Estimate realistic accommodation, food and transport costs.
+    2. Check if the user's budget is sufficient.
+    3. If insufficient, suggest adjustments.
+    4. Then generate the itinerary.
+    5. Use user preferences from memory.
 """
 
 # Request Model
 class ChatRequest(BaseModel):
     message: str
+    user_id: str
 
 # Health Check
 @app.get("/")
@@ -67,20 +70,6 @@ def health():
 
 # Chat Endpoint
 @app.post("/chat")
-def chat(request: ChatRequest):
-    try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=f"{SYSTEM_PROMPT}\n\nUser: {request.message}"
-        )
-
-        return {
-            "reply": response.text
-        }
-
-    except Exception as e:
-        print("Error:", e)
-
-        return {
-            "reply": "Sorry, I couldn't process your request right now. Please try again."
-        }
+async def chat(req: ChatRequest):
+    result = travel_agent(req.message, user_id=req.user_id)
+    return result
