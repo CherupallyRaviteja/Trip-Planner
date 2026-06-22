@@ -26,14 +26,28 @@ def travel_agent(query, user_id):
 
     trip = intent["trip_details"]   
 
-    memory = merge_memory(memory,intent["memory_updates"],user_id)
+    query_type = intent["query_type"]
 
-    if not trip.get("destination"):
+    if query_type == "non_trip_request":
+
+        memory = merge_memory(
+            memory,
+            intent["memory_updates"],
+            user_id
+        )
+
+        if any(intent["memory_updates"].values()):
+
+            return {
+                "message":
+                "Thank you. Your preferences have been saved and will be used for future trip recommendations."
+            }
+
         return {
             "message":
-            "Thank you. Your preferences have been saved and will be used for future trip recommendations."
+            "I am Trip Planner. I can only generate trip plans and handle travel-related preferences."
         }
-    
+   
     for key, value in last_trip.items():
         if trip.get(key) is None:
             trip[key] = value

@@ -23,6 +23,7 @@ def understand_query(query, memory):
     Return JSON:
 
     {{
+     "query_type": "",
       "trip_details": {{
         "destination": null,
         "duration_days": null,
@@ -37,6 +38,12 @@ def understand_query(query, memory):
         "transport_preferences": []
       }}
     }}
+
+    Rules:
+    - trip_request:
+        - Any request to create, modify, update, continue, refine, or discuss a travel plan.
+    - non_trip_request:
+        -  Any query unrelated to travel planning or travel preferences.
 
     Only include information in memory_updates if it represents a long-term user preference.
 
