@@ -358,9 +358,9 @@ https://trip-planner-1-4juy.onrender.com
 
 <img width="1354" height="609" alt="image" src="https://github.com/user-attachments/assets/1ffb7aa6-d684-405c-8191-1660f5fcee10" />
 
-<img width="1352" height="608" alt="image" src="https://github.com/user-attachments/assets/fbf23250-81da-470f-9edc-6f9d54a0bdb7" />
+<img width="1350" height="607" alt="image" src="https://github.com/user-attachments/assets/9e89c440-44a7-4075-a597-2b6810c8c573" />
 
-<img width="1352" height="605" alt="image" src="https://github.com/user-attachments/assets/60d6210f-2c5b-4621-b73d-5884bec9353e" />
+<img width="1353" height="608" alt="image" src="https://github.com/user-attachments/assets/cabe0b0b-fba9-406c-9c94-cd08c375f7a6" />
 
 ---
 
