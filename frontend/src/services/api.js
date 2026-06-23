@@ -1,4 +1,4 @@
-const API_URL = "https://trip-planner-1-4juy.onrender.com";
+const API_URL = "https://trip-planner-chatbot.onrender.com";
 
 export async function sendMessage(message) {
   const response = await fetch(`${API_URL}/chat`, {
