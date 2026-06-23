@@ -362,6 +362,8 @@ https://trip-planner-1-4juy.onrender.com
 
 <img width="1353" height="608" alt="image" src="https://github.com/user-attachments/assets/cabe0b0b-fba9-406c-9c94-cd08c375f7a6" />
 
+<img width="1350" height="609" alt="image" src="https://github.com/user-attachments/assets/c7c2b97d-5073-42a8-981a-9aa8ea31f9d3" />
+
 ---
 
 ## Features Implemented
