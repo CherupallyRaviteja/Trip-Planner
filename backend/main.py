@@ -20,7 +20,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://trip-planner-t5dv.vercel.app"
+        "https://trip-planner-chatbot-jnknzeuws-raviteja-cherupally-s-projects.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
