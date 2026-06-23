@@ -1,7 +1,7 @@
 function ItineraryCard({ day }) {
 
   return (
-    <div className="bg-white rounded-xl shadow p-5">
+    <div className="bg-white rounded-xl shadow p-6 max-w-4xl mx-auto mb-8">
 
       <h2 className="text-xl font-bold mb-4">
 
@@ -10,7 +10,11 @@ function ItineraryCard({ day }) {
       </h2>
 
       {day.image && (
-      <img src={day.image} alt={day.title} className="w-full h-64 object-cover rounded-xlmb-4"/>
+      <img
+  src={day.image}
+  alt={day.title}
+  className="w-full h-96 object-cover rounded-xl mb-4"
+/>
       )}
 
       <h3 className="font-semibold text-lg mb-4">

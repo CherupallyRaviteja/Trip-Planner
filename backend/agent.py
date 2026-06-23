@@ -47,6 +47,7 @@ def travel_agent(query, user_id):
             "message":
             "I am Trip Planner. I can only generate trip plans and handle travel-related preferences."
         }
+
    
     for key, value in last_trip.items():
         if trip.get(key) is None:

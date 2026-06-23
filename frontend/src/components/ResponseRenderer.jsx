@@ -34,12 +34,14 @@ function ResponseRenderer({ data }) {
         trip={data.trip_details}
       />
 
+      <div className="space-y-8">
       {data.itinerary?.map((day) => (
         <ItineraryCard
           key={day.day}
           day={day}
         />
       ))}
+    </div>
 
     </div>
   );
